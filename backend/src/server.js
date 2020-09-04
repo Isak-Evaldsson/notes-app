@@ -3,7 +3,7 @@ const app = express();
 
 /*
     TODO:
-    * fix schema validation
+    * fix schema validation (perhaps using joi)
     * backup notes object to class
     * refactoring/ make notes a proper class
 */
