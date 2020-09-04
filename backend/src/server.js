@@ -1,7 +1,12 @@
 const express = require('express');
 const app = express();
 
-//TODO schema validation
+/*
+    TODO:
+    * fix schema validation
+    * backup notes object to class
+    * refactoring/ make notes a proper class
+*/
 
 app.use(express.json());
 
