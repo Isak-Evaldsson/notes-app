@@ -1,29 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Children } from 'react';
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import { List, ListItem, ListItemText } from '@material-ui/core'
 import './App.css';
 
 
-function List(props) {
+function MateriaList(props) {
     const { notes } = props;
     if (!notes || notes.length === 0) return <p>Empty</p>
 
     return (
-        <ul>
+        <List>
             {notes.map((note) => {
                 return (
-                    <li>
-                        <span>{note.name}</span>
-                    </li>
+                    <ListItem button>
+                        <ListItemText primary={note.name}/>
+                    </ListItem>
                 );
             })}
-        </ul>
+        </List>
     )
 }
 
-function NotesList() {
+function NotesFetcher() {
     const [notesList, setNotesList] = useState([]);
 
     useEffect(() => {
@@ -35,11 +36,10 @@ function NotesList() {
             });
     })
 
-    return <List notes={notesList} />
+    return <MateriaList notes={notesList}/>
 }
 
 function App() {
-
 
     return (
         <div className="App">
@@ -50,7 +50,7 @@ function App() {
           </Typography>
                 </Toolbar>
             </AppBar>
-            <NotesList />
+            <NotesFetcher />
             <Button variant='contained' color='primary'>Create Entry</Button>
         </div>
     );
