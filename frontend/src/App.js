@@ -1,8 +1,9 @@
-import React, { useState, useEffect, Children } from 'react';
+import React, { useState, useEffect} from 'react';
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
+import Fab from '@material-ui/core/Fab'
+import AddIcon from '@material-ui/icons/Add'
 import { List, ListItem, ListItemText } from '@material-ui/core'
 import './App.css';
 
@@ -43,7 +44,7 @@ function App() {
 
     return (
         <div className="App">
-            <AppBar position='static'>
+            <AppBar position='sticky'>
                 <Toolbar>
                     <Typography variant="h6" className='Header'>
                         Notes App
@@ -51,7 +52,9 @@ function App() {
                 </Toolbar>
             </AppBar>
             <NotesFetcher />
-            <Button variant='contained' color='primary'>Create Entry</Button>
+            <Fab style ={{position : 'fixed', bottom : '15px', right : '15px'}} color = 'primary'> 
+                <AddIcon/>
+            </Fab>
         </div>
     );
 }
