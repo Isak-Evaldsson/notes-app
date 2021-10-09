@@ -16,9 +16,9 @@ const port = 3001;
 const url = '/api/notes'
 
 const notes = [
-    { id: 1, name: 'favorite whiskes', content: ['Laphraoig', 'The Balveine', 'High Coast']}, 
-    { id: 2, name: 'groceries', content: ['Apple', 'Pear', 'Milk']},
-    { id: 3, name: 'note to self', content: "Clean Kitchen"}
+    { id: 0, name: 'favorite whiskes', content: ['Laphraoig', 'The Balveine', 'High Coast']}, 
+    { id: 1, name: 'groceries', content: ['Apple', 'Pear', 'Milk']},
+    { id: 2, name: 'note to self', content: ["Clean Kitchen"]}
 ];
 
 app.get(url, function(req, res) {
