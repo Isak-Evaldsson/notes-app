@@ -27,37 +27,12 @@ function MateriaList(props) {
     )
 }
 
-function NotesFetcher(props) {
-    useEffect(() => {
-        fetch("http://localhost:3001/api/notes")
-            .then((res) => res.json())
-            .then((notes) => {
-                //console.log(notes);
-                props.setNotesList(notes);
-            });
-    })
-
-    return <MateriaList notes={props.notesList} setPage={props.setPage} setList={props.setList}/>
-}
-
 function ShowNote(props) {
-    const [note, setNote] = useState([]);
-    const [content, setContent] = useState([]);
-
-    useEffect(() => {
-        fetch("http://localhost:3001/api/notes/" + props.id)
-            .then((res) => res.json())
-            .then((note) => {
-                setNote(note);
-                setContent(note.content)
-            });
-    })
-
     return (
         <div>
-            <h3>{note.name}</h3>
+            <h3>{props.note.name}</h3>
              <ul>
-                {content.map(content => {
+                {props.note.content.map(content => {
                     return <li>{content}</li>
                 })}
             </ul>
@@ -71,12 +46,32 @@ function Page() {
     const [list, setList] = useState(true);
     const [page, setPage] = useState(0);
 
+    useEffect(() => {
+        fetch("http://localhost:3001/api/notes")
+            .then((res) => res.json())
+            .then((notes) => {
+                console.log("Fetched notes from server");
+                setNotesList(notes);
+            });
+    })
 
     if(list) {
-        return <NotesFetcher setPage={setPage} setList={setList} setNotesList={setNotesList} notesList={notesList}/>
+        return <MateriaList notes={notesList} setPage={setPage} setList={setList}/>
     } else {
-        return <ShowNote id={page} setList={setList}/>
+        return <ShowNote note={notesList[page]} setList={setList}/>
     }
+}
+
+function postNote(name, content) {
+    const data = {name: name, content: content }
+
+    fetch("http://localhost:3001/api/notes", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }).then(res => {
+        console.log("Request complete! response:", res);
+    });          
 }
 
 function App() {
@@ -91,7 +86,9 @@ function App() {
             </AppBar>
             <Page/>
             <Fab style ={{position : 'fixed', bottom : '15px', right : '15px'}} color = 'primary'> 
-                <AddIcon/>
+                <AddIcon onClick={() => {
+                    postNote('Test Note', ['Test Data'])                               
+                }}/>
             </Fab>
         </div>
     );
